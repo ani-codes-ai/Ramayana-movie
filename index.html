@@ -218,6 +218,17 @@
             </div>
 
             <div class="space-y-6">
+                <!-- City Selection -->
+                <div>
+                    <h3 class="font-cinzel text-gold-light text-lg font-semibold mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-city"></i> Choose the Realm
+                    </h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="option-card city-option text-center p-3 rounded font-cinzel font-bold text-gray-200" onclick="selectCity('Mysore', this)">Mysore</div>
+                        <div class="option-card city-option text-center p-3 rounded font-cinzel font-bold text-gray-200" onclick="selectCity('Bangalore', this)">Bangalore</div>
+                    </div>
+                </div>
+
                 <!-- Date Selection -->
                 <div>
                     <h3 class="font-cinzel text-gold-light text-lg font-semibold mb-3 flex items-center gap-2">
@@ -231,15 +242,19 @@
                 </div>
 
                 <!-- Time Selection -->
-                <div>
+                <div id="time-container" class="hidden">
                     <h3 class="font-cinzel text-gold-light text-lg font-semibold mb-1 flex items-center gap-2">
                         <i class="fa-regular fa-clock"></i> Choose the Hour
                     </h3>
-                    <p class="text-xs text-epic-orange mb-3">*Available for Mysore & Bangalore</p>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <div class="option-card time-option text-center p-3 rounded font-cinzel font-bold text-gray-200" onclick="selectOption('time', '10:15 AM', this)">10:15 AM</div>
+                    <p class="text-xs text-epic-orange mb-3">*Timings localized to chosen Realm</p>
+                    
+                    <div id="mysore-times" class="hidden grid grid-cols-2 gap-3 mt-3">
                         <div class="option-card time-option text-center p-3 rounded font-cinzel font-bold text-gray-200" onclick="selectOption('time', '2:00 PM', this)">2:00 PM</div>
                         <div class="option-card time-option text-center p-3 rounded font-cinzel font-bold text-gray-200" onclick="selectOption('time', '5:55 PM', this)">5:55 PM</div>
+                    </div>
+                    
+                    <div id="bangalore-times" class="hidden grid grid-cols-2 gap-3 mt-3">
+                        <div class="option-card time-option text-center p-3 rounded font-cinzel font-bold text-gray-200" onclick="selectOption('time', '10:15 AM', this)">10:15 AM</div>
                         <div class="option-card time-option text-center p-3 rounded font-cinzel font-bold text-gray-200" onclick="selectOption('time', '6:25 PM', this)">6:25 PM</div>
                     </div>
                 </div>
@@ -263,12 +278,15 @@
         <div id="step3" class="step-container">
             <div class="text-center mb-8">
                 <h1 class="font-cinzel text-3xl sm:text-4xl font-bold mb-2 text-gold-gradient">The Sweet Ending</h1>
-                <p class="text-gray-300">Every epic tale ends with sweetness. Where shall we celebrate?</p>
+                <p class="text-gray-300">Every epic tale ends with sweetness. Where shall we celebrate? (Select multiple, or none!)</p>
             </div>
 
             <div class="space-y-4">
-                <div class="option-card dessert-option flex items-center p-4 rounded gap-4" onclick="selectOption('dessert', 'Corner House', this)">
-                    <div class="w-12 h-12 rounded-full bg-deep-maroon border border-gold-base flex items-center justify-center text-xl text-gold-base">
+                <div class="option-card dessert-option flex items-center p-4 rounded gap-4" onclick="toggleDessert('Corner House', this)">
+                    <div class="w-6 h-6 border-2 border-gold-base rounded flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-check text-gold-light opacity-0 transition-opacity check-mark"></i>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-deep-maroon border border-gold-base flex items-center justify-center text-lg text-gold-base shrink-0">
                         <i class="fa-solid fa-ice-cream"></i>
                     </div>
                     <div class="flex-1">
@@ -277,8 +295,11 @@
                     </div>
                 </div>
 
-                <div class="option-card dessert-option flex items-center p-4 rounded gap-4" onclick="selectOption('dessert', 'Baskin Robbins', this)">
-                    <div class="w-12 h-12 rounded-full bg-deep-maroon border border-gold-base flex items-center justify-center text-xl text-gold-base">
+                <div class="option-card dessert-option flex items-center p-4 rounded gap-4" onclick="toggleDessert('Baskin Robbins', this)">
+                    <div class="w-6 h-6 border-2 border-gold-base rounded flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-check text-gold-light opacity-0 transition-opacity check-mark"></i>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-deep-maroon border border-gold-base flex items-center justify-center text-lg text-gold-base shrink-0">
                         <i class="fa-solid fa-spoon"></i>
                     </div>
                     <div class="flex-1">
@@ -287,8 +308,11 @@
                     </div>
                 </div>
 
-                <div class="option-card dessert-option flex items-center p-4 rounded gap-4" onclick="selectOption('dessert', 'Magnolia Bakery', this)">
-                    <div class="w-12 h-12 rounded-full bg-deep-maroon border border-gold-base flex items-center justify-center text-xl text-gold-base">
+                <div class="option-card dessert-option flex items-center p-4 rounded gap-4" onclick="toggleDessert('Magnolia Bakery', this)">
+                    <div class="w-6 h-6 border-2 border-gold-base rounded flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-check text-gold-light opacity-0 transition-opacity check-mark"></i>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-deep-maroon border border-gold-base flex items-center justify-center text-lg text-gold-base shrink-0">
                         <i class="fa-solid fa-cake-candles"></i>
                     </div>
                     <div class="flex-1">
@@ -316,6 +340,10 @@
 
                     <div class="space-y-4 mb-6">
                         <div class="flex justify-between items-end border-b border-gold-base/20 pb-2">
+                            <span class="text-gray-400 text-sm">Location</span>
+                            <span id="ticket-city" class="font-cinzel font-bold text-gold-light text-lg">--</span>
+                        </div>
+                        <div class="flex justify-between items-end border-b border-gold-base/20 pb-2">
                             <span class="text-gray-400 text-sm">Date</span>
                             <span id="ticket-date" class="font-cinzel font-bold text-gold-light text-lg">--</span>
                         </div>
@@ -325,11 +353,11 @@
                         </div>
                         <div class="flex justify-between items-end border-b border-gold-base/20 pb-2">
                             <span class="text-gray-400 text-sm">Snacks</span>
-                            <span class="font-cinzel font-bold text-gold-light text-lg">Complimentary</span>
+                            <span class="font-cinzel font-bold text-gold-light text-lg text-right max-w-[50%]">Complimentary</span>
                         </div>
                         <div class="flex justify-between items-end border-b border-gold-base/20 pb-2">
-                            <span class="text-gray-400 text-sm">Post-Movie Sweet</span>
-                            <span id="ticket-dessert" class="font-cinzel font-bold text-epic-orange text-lg">--</span>
+                            <span class="text-gray-400 text-sm">Dessert</span>
+                            <span id="ticket-dessert" class="font-cinzel font-bold text-epic-orange text-lg text-right max-w-[60%]">--</span>
                         </div>
                     </div>
 
@@ -339,6 +367,10 @@
                         <i class="fa-solid fa-qrcode text-5xl text-gold-base/50 mb-3"></i>
                         <p class="font-cinzel text-xl text-gold-light font-bold">Your chariot awaits!</p>
                         <p class="text-sm text-gray-400 mt-1">See you there.</p>
+                        
+                        <button onclick="shareTicket()" class="btn-gold font-cinzel text-sm font-bold px-6 py-2 rounded-full mt-6">
+                            Share Ticket <i class="fa-solid fa-share-nodes ml-2"></i>
+                        </button>
                     </div>
 
                 </div>
@@ -352,9 +384,10 @@
     <script>
         // State
         const selections = {
+            city: null,
             date: null,
             time: null,
-            dessert: null
+            desserts: []
         };
 
         // Navigation
@@ -380,28 +413,103 @@
             element.classList.add('selected');
         }
 
+        // Specific logic for City
+        function selectCity(city, element) {
+            selections.city = city;
+            selections.time = null; // Reset time on city change
+
+            // UI updates for City
+            document.querySelectorAll('.city-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            // Reset Time selection UI
+            document.querySelectorAll('.time-option').forEach(el => el.classList.remove('selected'));
+
+            // Show and filter Time container
+            document.getElementById('time-container').classList.remove('hidden');
+            if (city === 'Mysore') {
+                document.getElementById('mysore-times').classList.remove('hidden');
+                document.getElementById('bangalore-times').classList.add('hidden');
+            } else {
+                document.getElementById('mysore-times').classList.add('hidden');
+                document.getElementById('bangalore-times').classList.remove('hidden');
+            }
+        }
+
+        // Specific logic for Multiple Desserts
+        function toggleDessert(value, element) {
+            const index = selections.desserts.indexOf(value);
+            const checkMark = element.querySelector('.check-mark');
+
+            if (index > -1) {
+                // Remove dessert
+                selections.desserts.splice(index, 1);
+                element.classList.remove('selected');
+                checkMark.classList.remove('opacity-100');
+                checkMark.classList.add('opacity-0');
+            } else {
+                // Add dessert
+                selections.desserts.push(value);
+                element.classList.add('selected');
+                checkMark.classList.remove('opacity-0');
+                checkMark.classList.add('opacity-100');
+            }
+        }
+
         // Validations
         function validateStep2() {
-            if (!selections.date || !selections.time) {
-                showToast("Please select both a Date and a Time.");
+            if (!selections.city || !selections.date || !selections.time) {
+                showToast("Please select your Realm, Date, and Time.");
                 return;
             }
             nextStep(3);
         }
 
         function validateStep3() {
-            if (!selections.dessert) {
-                showToast("Please select a Dessert destination.");
-                return;
-            }
+            // Desserts are now completely optional!
             nextStep(4);
         }
 
         // Ticket Generation
         function generateTicket() {
+            document.getElementById('ticket-city').textContent = selections.city;
             document.getElementById('ticket-date').textContent = selections.date;
             document.getElementById('ticket-time').textContent = selections.time;
-            document.getElementById('ticket-dessert').textContent = selections.dessert;
+            
+            const dessertText = selections.desserts.length > 0 
+                ? selections.desserts.join(', ') 
+                : 'We will decide later';
+            document.getElementById('ticket-dessert').textContent = dessertText;
+        }
+
+        // Share Ticket logic
+        async function shareTicket() {
+            const dessertStr = selections.desserts.length > 0 ? selections.desserts.join(', ') : 'TBD';
+            const text = `I'm going to watch RAMAYANA!\nLocation: ${selections.city}\nWhen: ${selections.date} at ${selections.time}\nSnacks: Complimentary\nDessert: ${dessertStr}\nDestiny awaits!`;
+            
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'Ramayana Movie Ticket',
+                        text: text
+                    });
+                } catch (err) {
+                    console.log('Error sharing:', err);
+                }
+            } else {
+                // Fallback to clipboard since some browsers block navigator.share
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast("Ticket details copied to clipboard!");
+                } catch (err) {
+                    showToast("Failed to copy details.");
+                }
+                document.body.removeChild(textArea);
+            }
         }
 
         // --- Dodging Button Logic ---
